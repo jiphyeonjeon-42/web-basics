@@ -1,5 +1,11 @@
 ---
 marp: true
+style: |
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
 ---
 
 # 온보딩코스 웹기초
@@ -446,15 +452,7 @@ https://ko.wikipedia.org/wiki/관심사_분리
 
 ---
 
----
-marp: true
-style: |
-  .columns {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-  }
----
+
 
 # 동기와 비동기
 
@@ -462,16 +460,12 @@ style: |
 
 ## 동기의 예시
 
-<div class="columns">
-<div>
-
 ![](https://easyflow.tech/storage/2021/05/Queue-Management-1.jpg)
-
-</div>
-<div>
 
 손님이 주문을 하고 주방에서 음식이 나올때까지 기다림
 (주방은 한 번에 10개까지 음식을 만들 수 있음)
+
+---
 
 | 손님 수 | 걸리는 시간 |
 | ------- | ----------- |
@@ -480,20 +474,15 @@ style: |
 | 10      | 1시간       |
 | 20      | 2시간       |
 
-</div>
-</div>
-
 ---
 
 ### 비동기의 예시
 
-<div class="columns">
-<div>
-<img src="https://mblogthumb-phinf.pstatic.net/MjAxODA4MjNfMTQ0/MDAxNTM0OTgzMjkyNjYz.VZwqwtcLLfwT8Jcsq7zMuWn__LNm3GiWlmgrc8dR7i4g.Ino6dj--ERG4SdR30LwTF2Wmv89czEoYh0FHdy7C4SQg.JPEG.superluckyme/%ED%94%8C%EB%9F%AC%EC%8A%A4%EC%B9%9C%EA%B5%AC_%EC%BF%A0%ED%8F%B0%EB%B0%9B%EC%95%84_%EC%84%9D%EC%B4%8C_%EB%B2%84%EA%B1%B0%ED%82%B9%EC%97%90%EC%84%9C_%EB%A8%B9%EC%9D%80_%EB%B0%B8%EB%9F%B0%EC%8A%A4%EC%B9%98%ED%82%A8%EB%B2%84%EA%B1%B0_%EC%84%B8%ED%8A%B8__9.jpg?type=w800" width="500" />
-</div>
-<div>
+![width:500px](https://mblogthumb-phinf.pstatic.net/MjAxODA4MjNfMTQ0/MDAxNTM0OTgzMjkyNjYz.VZwqwtcLLfwT8Jcsq7zMuWn__LNm3GiWlmgrc8dR7i4g.Ino6dj--ERG4SdR30LwTF2Wmv89czEoYh0FHdy7C4SQg.JPEG.superluckyme/%ED%94%8C%EB%9F%AC%EC%8A%A4%EC%B9%9C%EA%B5%AC_%EC%BF%A0%ED%8F%B0%EB%B0%9B%EC%95%84_%EC%84%9D%EC%B4%8C_%EB%B2%84%EA%B1%B0%ED%82%B9%EC%97%90%EC%84%9C_%EB%A8%B9%EC%9D%80_%EB%B0%B8%EB%9F%B0%EC%8A%A4%EC%B9%98%ED%82%A8%EB%B2%84%EA%B1%B0_%EC%84%B8%ED%8A%B8__9.jpg?type=w800)
 
 손님은 주문표만 뽑고, 주방에서 음식이 나오면 그때 받으러 감
+
+---
 
 | 손님 수 | 걸리는 시간 |
 | ------- | ----------- |
@@ -501,9 +490,6 @@ style: |
 | 2       | 6분         |
 | 10      | 6분         |
 | 20      | 12분        |
-
-</div>
-</div>
 
 ---
 
@@ -551,7 +537,7 @@ const 나중에실패 = new Promise((resolve, reject) => reject('실패'))
 
 ---
 
-### js에서 비동기
+## js에서 비동기
 
 지정한 밀리초 이후 함수를 실행
 
@@ -575,7 +561,7 @@ console.log('2')
 
 ---
 
-### async와 await
+## async와 await
 
 promise를 쉽게 쓰기 위한 문법 설탕
 
