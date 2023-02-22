@@ -400,3 +400,209 @@ https://developer.mozilla.org/ko/docs/Learn/Common_questions/Web_mechanics/What_
 
 
 
+# 프론트엔드? 백엔드?
+
+---
+
+## 프론트엔드
+
+- 보통은 클라이언트에서
+- 서버가 가져온 데이터를 화면에 보여주는 역할
+- 언어: HTML, CSS, JS
+
+## 백엔드
+
+- 보통은 서버에서
+- 프론트엔드에게 데이터를 제공하는 역할
+- 언어: 자유, 보통은 Java, Python, Ruby, PHP, Node.js, Go
+- DB, 서버, 네트워크 등의 기술을 사용
+
+<!-- https://en.wikipedia.org/wiki/Frontend_and_backend -->
+
+---
+
+## 프론트엔드와 백엔드를 나누는 이유
+
+![신 오브젝트][god]
+
+[god]: https://www.researchgate.net/profile/William-Grosky/publication/307572331/figure/fig1/AS:792593864597508@1565980511623/An-example-of-god-object-Web-service.png
+
+- 동시에 개발이 가능하다
+- 같은 일을 하는 부분끼리 따로 나누었기 때문에 유지보수하기 좋다
+- API로만 통신하므로 서로의 구현에 영향을 받지 않는다
+
+<!--
+https://ko.wikipedia.org/wiki/관심사_분리
+-->
+
+---
+
+---
+marp: true
+style: |
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+---
+
+# 동기와 비동기
+
+---
+
+## 동기의 예시
+
+<div class="columns">
+<div>
+
+![](https://easyflow.tech/storage/2021/05/Queue-Management-1.jpg)
+
+</div>
+<div>
+
+손님이 주문을 하고 주방에서 음식이 나올때까지 기다림
+(주방은 한 번에 10개까지 음식을 만들 수 있음)
+
+| 손님 수 | 걸리는 시간 |
+| ------- | ----------- |
+| 1       | 6분         |
+| 2       | 12분        |
+| 10      | 1시간       |
+| 20      | 2시간       |
+
+</div>
+</div>
+
+---
+
+### 비동기의 예시
+
+<div class="columns">
+<div>
+<img src="https://mblogthumb-phinf.pstatic.net/MjAxODA4MjNfMTQ0/MDAxNTM0OTgzMjkyNjYz.VZwqwtcLLfwT8Jcsq7zMuWn__LNm3GiWlmgrc8dR7i4g.Ino6dj--ERG4SdR30LwTF2Wmv89czEoYh0FHdy7C4SQg.JPEG.superluckyme/%ED%94%8C%EB%9F%AC%EC%8A%A4%EC%B9%9C%EA%B5%AC_%EC%BF%A0%ED%8F%B0%EB%B0%9B%EC%95%84_%EC%84%9D%EC%B4%8C_%EB%B2%84%EA%B1%B0%ED%82%B9%EC%97%90%EC%84%9C_%EB%A8%B9%EC%9D%80_%EB%B0%B8%EB%9F%B0%EC%8A%A4%EC%B9%98%ED%82%A8%EB%B2%84%EA%B1%B0_%EC%84%B8%ED%8A%B8__9.jpg?type=w800" width="500" />
+</div>
+<div>
+
+손님은 주문표만 뽑고, 주방에서 음식이 나오면 그때 받으러 감
+
+| 손님 수 | 걸리는 시간 |
+| ------- | ----------- |
+| 1       | 6분         |
+| 2       | 6분         |
+| 10      | 6분         |
+| 20      | 12분        |
+
+</div>
+</div>
+
+---
+
+## 비동기란
+
+![](https://miro.medium.com/v2/format:webp/1*V5syja2casc0gCuu9zKV5g.png)
+
+- 작업이 끝날 때까지 기다리지 않는 것
+- 예시: 이메일 (전화와 달리 바로 답변할 필요 없음)
+- fetch, db 통신등은 시간이 오래 걸리는 작업이므로 비동기로 처리하는 것이 좋음
+<!--
+https://developer.mozilla.org/ko/docs/Glossary/aSynchronous
+https://developer.mozilla.org/ko/docs/Learn/JavaScript/Asynchronous
+-->
+
+---
+
+### 비동기 직접 써보기
+
+```ts
+const response = fetch('https://jsonplaceholder.typicode.com/users/1') // 서버에서 데이터 가져오기
+console.log(response) // Promise { <state>: "fulfilled", <value>: Response }
+
+const jsonPromise = response.then(response => response.json()) // json으로 변환
+console.log(jsonPromise) // Promise { <state>: "fulfilled", <value>: Response }
+
+jsonPromise.then(json => console.log(json)) // 결과값 출력
+```
+
+---
+
+### Promise란
+
+- 나중에 결과를 반환할 거라고 약속(promise)하는 객체
+- `then`: 나중에 결과가 나오면 실행할 함수를 등록
+- `catch`: 나중에 실패한다면 실행할 함수를 등록
+
+```ts
+const 나중에3 = new Promise((resolve, reject) => resolve(3))
+const 나중에실패 = new Promise((resolve, reject) => reject('실패'))
+
+나중에3.then(결과 => console.log(결과)) // 3
+나중에실패.catch(이유 => console.log(이유)) // 실패
+```
+
+---
+
+### js에서 비동기
+
+지정한 밀리초 이후 함수를 실행
+
+```ts
+console.log('1')
+setTimeout(() => console.log('3'), 500)
+console.log('2')
+// 숫자는 실제 실행 순서
+```
+
+---
+
+### 어떻게 동작하는 걸까?
+
+- stack에 있는 코드는 순차 실행
+- setTimeout같이 비동기 코드는 순차실행이 불가능하니 실행을 미루고 대기실로 이동
+- 대기가 끝난 코드들은 (예시: 500밀리초 기다리기 끝!) 큐로 이동
+- 스택이 비어있으면 큐에서 코드를 가져와 실행
+
+<!-- 참고: https://youtu.be/v67LloZ1ieI?t=244 -->
+
+---
+
+### async와 await
+
+promise를 쉽게 쓰기 위한 문법 설탕
+
+```ts
+function getPromise(): Promise<number> {
+  return new Promise(resolve => resolve(1))
+}
+
+function fetchDataThen() {
+  const promise: Promise<number> = getPromise()
+  promise.then((data: number) => console.log(data))
+}
+fetchDataThen()
+```
+
+---
+
+### async await 사용시
+
+```ts
+async function getPromiseAsync(): Promise<number> {
+  return 1
+}
+
+async function fetchDataAsync() {
+  const data: number = await getPromiseAsync()
+
+  console.log(data)
+}
+fetchDataAsync()
+```
+
+`async` 키워드: 함수가 무조건 Promise를 반환하게 만듬
+`await` 키워드: Promise가 끝날 때까지 기다림
+
+<!--
+https://ko.javascript.info/async-await
+ -->
+
