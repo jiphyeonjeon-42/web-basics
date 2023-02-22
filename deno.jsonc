@@ -5,7 +5,6 @@
     }
   },
   "tasks": {
-    "merge": "deno run --allow-read --allow-write merge.ts",
     "template": "deno run -A template.ts template.md -o dist/slide.md",
     "html": "deno run -A npm:@marp-team/marp-cli dist/slide.md -o dist/index.html",
     "build": "deno task template && deno task html"
